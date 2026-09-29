@@ -23,6 +23,8 @@ import {
 } from "@/components/ui/sheet";
 import { BookButton } from "@/components/booking/BookButton";
 import { cn } from "@/lib/utils";
+import { Phone } from "lucide-react";
+import { site } from "@/data/site";
 
 const icons: Record<string, LucideIcon> = {
   physician: HeartPulse,
@@ -32,9 +34,10 @@ const icons: Record<string, LucideIcon> = {
 
 export function MobileNav() {
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button
           variant="outline"
@@ -101,10 +104,23 @@ export function MobileNav() {
           )}
         </nav>
 
-        <div className="p-4">
-          <SheetClose asChild>
-            <BookButton className="w-full">Book Home Visit</BookButton>
-          </SheetClose>
+        <div className="space-y-2 p-4">
+          <BookButton
+            className="w-full"
+            onClick={(e) => {
+              e.preventDefault();
+              setOpen(false);
+            }}
+          >
+            Book Home Visit
+          </BookButton>
+          <a
+            href={`tel:+91${site.phones[0]}`}
+            className="flex w-full items-center justify-center gap-2 rounded-lg bg-green-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-green-700"
+          >
+            <Phone className="size-4" />
+            Call Now
+          </a>
         </div>
       </SheetContent>
     </Sheet>

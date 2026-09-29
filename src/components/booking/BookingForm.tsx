@@ -12,6 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import Link from "next/link";
+import { useBookingDialog } from "@/components/booking/BookingDialog";
 
 const services = ["Physician", "General Surgery", "General Medicine"] as const;
 
@@ -24,6 +25,7 @@ function todayStr() {
 
 export function BookingForm() {
   const [waUrl, setWaUrl] = useState<string | null>(null);
+   const { close } = useBookingDialog();
 
   const {
     register,
@@ -74,7 +76,7 @@ export function BookingForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-6">
+        <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4 sm:space-y-6">
       <div className="space-y-2">
         <Label htmlFor="name">Your name</Label>
         <Input id="name" placeholder="Enter your full name" {...register("name")} />
@@ -151,7 +153,7 @@ export function BookingForm() {
         )}
       </div>
 
-      <div className="grid gap-6 sm:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-2 sm:gap-6">
         <div className="space-y-2">
           <Label htmlFor="date">Preferred date</Label>
           <Input id="date" type="date" min={todayStr()} {...register("date")} />
@@ -177,14 +179,19 @@ export function BookingForm() {
         WhatsApp will open with your details already filled in. Just press
         Send.
       </p>
-      <p className="text-center text-xs text-muted-foreground">
+     <p className="text-center text-xs text-muted-foreground">
         By booking, you agree to our{" "}
-        <Link href="/terms" className="font-medium text-primary hover:underline">
+        <Link
+          href="/terms"
+          onClick={close}
+          className="font-medium text-primary hover:underline"
+        >
           Terms
         </Link>{" "}
         and{" "}
         <Link
           href="/privacy-policy"
+          onClick={close}
           className="font-medium text-primary hover:underline"
         >
           Privacy Policy
