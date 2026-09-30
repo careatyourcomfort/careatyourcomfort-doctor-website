@@ -93,7 +93,7 @@ export function Testimonials() {
       <Reveal className="max-w-2xl">
         <h2 className="text-3xl font-bold sm:text-4xl">What patients say</h2>
         <p className="mt-3 text-muted-foreground">
-          Real feedback will appear here once patient reviews are collected.
+          Here's what patients say about their home visit experience.
         </p>
       </Reveal>
 
