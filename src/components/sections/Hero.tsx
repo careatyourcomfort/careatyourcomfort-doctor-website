@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { IndianRupee, MapPin, MessageCircle } from "lucide-react";
+import { Clock, IndianRupee, MapPin, MessageCircle } from "lucide-react";
 import { site } from "@/data/site";
 import { Button } from "@/components/ui/button";
 import { BookButton } from "@/components/booking/BookButton";
@@ -22,12 +22,11 @@ export function Hero() {
           </h1>
 
           <p className="animate-fade-up mt-5 max-w-xl text-lg text-white/85 [animation-delay:200ms]">
-            Book a doctor&apos;s home visit in {site.location}. Fill in a short
-            form and your booking goes straight to the doctor on WhatsApp.
+            Book a doctor home visit for convenient medical consultation and care at home.
           </p>
 
           <div className="animate-fade-up mt-8 flex flex-wrap gap-3 [animation-delay:300ms]">
-                        <BookButton
+            <BookButton
               size="lg"
               className="bg-highlight text-highlight-foreground hover:bg-highlight/90"
             >
@@ -62,27 +61,45 @@ export function Hero() {
               className="h-[340px] w-full object-cover sm:h-[400px]"
             />
 
-            <div className="absolute inset-x-4 bottom-4 flex flex-wrap gap-3 sm:inset-x-6 sm:bottom-6">
-              <div className="flex items-center gap-3 rounded-2xl bg-white/95 px-4 py-3 shadow-lg backdrop-blur">
-                <span className="flex size-9 items-center justify-center rounded-full bg-secondary text-primary">
+            <div className="absolute inset-x-2 bottom-2 grid grid-cols-3 gap-1.5 sm:inset-x-5 sm:bottom-5 sm:gap-3">
+              <div className="flex min-w-0 items-center gap-2 rounded-xl bg-white/95 px-2 py-2 shadow-lg backdrop-blur sm:rounded-2xl sm:gap-3 sm:p-3">
+                <span className="hidden size-8 shrink-0 items-center justify-center rounded-full bg-secondary text-primary sm:flex">
                   <MapPin className="size-4" />
                 </span>
-                <div>
-                  <p className="text-xs text-muted-foreground">Service area</p>
-                  <p className="text-sm font-bold text-card-foreground">
+                <div className="min-w-0">
+                  <p className="text-[10px] leading-tight text-muted-foreground sm:text-xs">
+                    Service area
+                  </p>
+                  <p className="mt-0.5 text-xs font-bold leading-tight text-card-foreground sm:text-sm">
                     {site.location}
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 rounded-2xl bg-white/95 px-4 py-3 shadow-lg backdrop-blur">
-                <span className="flex size-9 items-center justify-center rounded-full bg-highlight/30 text-highlight-foreground">
+              <div className="flex min-w-0 items-center gap-2 rounded-xl bg-white/95 px-2 py-2 shadow-lg backdrop-blur sm:rounded-2xl sm:gap-3 sm:p-3">
+                <span className="hidden size-8 shrink-0 items-center justify-center rounded-full bg-highlight/30 text-highlight-foreground sm:flex">
                   <IndianRupee className="size-4" />
                 </span>
-                <div>
-                  <p className="text-xs text-muted-foreground">Consultation fee</p>
-                  <p className="text-sm font-bold text-card-foreground">
+                <div className="min-w-0">
+                  <p className="text-[10px] leading-tight text-muted-foreground sm:text-xs">
+                    Consultation fee
+                  </p>
+                  <p className="mt-0.5 text-xs font-bold leading-tight text-card-foreground sm:text-sm">
                     ₹{site.fee}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex min-w-0 items-center gap-2 rounded-xl bg-white/95 px-2 py-2 shadow-lg backdrop-blur sm:rounded-2xl sm:gap-3 sm:p-3">
+                <span className="hidden size-8 shrink-0 items-center justify-center rounded-full bg-secondary text-primary sm:flex">
+                  <Clock className="size-4" />
+                </span>
+                <div className="min-w-0">
+                  <p className="text-[10px] leading-tight text-muted-foreground sm:text-xs">
+                    Availability
+                  </p>
+                  <p className="mt-0.5 text-xs font-bold leading-tight text-card-foreground sm:text-sm">
+                    24x7
                   </p>
                 </div>
               </div>
