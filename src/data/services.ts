@@ -7,9 +7,9 @@ export const services = [
     description:
       "Our physician consultations cover a wide range of everyday health concerns, from fever and infections to long-term conditions like blood pressure and diabetes. The doctor examines you at home, discusses your symptoms and history, and recommends the right treatment or further tests if needed.",
     heroImage:
-      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1600&auto=format&fit=crop",
+      "/images/p1.jpg",
     sideImage:
-      "https://images.unsplash.com/photo-1584982751601-97dcc096659c?q=80&w=1200&auto=format&fit=crop",
+      "/images/p2.jpg",
     includes: [
       "Full physical examination",
       "Blood pressure and sugar check",
@@ -32,9 +32,9 @@ export const services = [
     description:
       "For surgical concerns such as wounds, minor injuries, post-operative care or lumps that need evaluation, the doctor assesses the problem at home and advises on the right next steps, including whether a hospital visit is required.",
     heroImage:
-      "https://images.unsplash.com/photo-1551076805-e1869033e561?q=80&w=1600&auto=format&fit=crop",
+      "/images/s1.jpg",
     sideImage:
-      "https://images.unsplash.com/photo-1582719471384-894fbb16e074?q=80&w=1200&auto=format&fit=crop",
+      "/images/s2.jpg",
     includes: [
       "Wound and injury assessment",
       "Post-surgery follow-up care",
@@ -57,9 +57,9 @@ export const services = [
     description:
       "General medicine covers the common health issues that come up in daily life, such as colds, infections, body aches and stomach problems. The doctor listens to your concerns, examines you, and prescribes the right medication.",
     heroImage:
-      "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?q=80&w=1600&auto=format&fit=crop",
+      "/images/g1.jpg",
     sideImage:
-      "https://images.unsplash.com/photo-1603807008857-ad66b70431aa?q=80&w=1173&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "/images/g2.jpg",
     includes: [
       "Consultation for common illnesses",
       "Medicine prescription",

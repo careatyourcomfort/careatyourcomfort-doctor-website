@@ -1,6 +1,5 @@
 export const site = {
   name: "Care at Your Comfort",
-  doctorName: "Dr. Your Name",
   tagline: "Doctors at Your Doorstep in Delhi NCR",
     mission:
     "We started this service to make quality healthcare accessible without the stress of travelling while unwell. Every visit is built around comfort, punctuality and honest, unhurried care.",

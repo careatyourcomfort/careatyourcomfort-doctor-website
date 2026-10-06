@@ -106,7 +106,7 @@ export default function AboutPage() {
           <Reveal>
             <div className="overflow-hidden rounded-3xl shadow-xl">
               <Image
-                src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1200&auto=format&fit=crop"
+                src="/images/about-story.jpg"
                 alt="Doctor providing home care"
                 width={700}
                 height={800}

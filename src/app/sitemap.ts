@@ -1,9 +1,10 @@
 import type { MetadataRoute } from "next";
 import { site } from "@/data/site";
 import { services } from "@/data/services";
-import { posts } from "@/data/blog";
+import { client } from "@/sanity/lib/client";
+import { postsQuery } from "@/sanity/lib/queries";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages = [
     "",
     "/about",
@@ -22,9 +23,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
   }));
 
+   const posts: { slug: string; publishedAt: string }[] = await client.fetch(postsQuery);
   const blogPages = posts.map((p) => ({
     url: `${site.url}/blog/${p.slug}`,
-    lastModified: new Date(p.date),
+    lastModified: new Date(p.publishedAt),
   }));
 
   return [...staticPages, ...servicePages, ...blogPages];

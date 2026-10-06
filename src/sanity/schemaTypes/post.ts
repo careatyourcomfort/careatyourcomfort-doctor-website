@@ -11,12 +11,13 @@ export const post = defineType({
       type: "string",
       validation: (rule) => rule.required(),
     }),
-    defineField({
+      defineField({
       name: "slug",
       title: "Slug",
       type: "slug",
-      description: "Used in the article's web address, e.g. /blog/your-slug",
-      options: { source: "title", maxLength: 96 },
+      description:
+        "Click the Generate button to create the web address automatically from the title.",
+      options: { source: "title", maxLength: 96, isUnique: () => true },
       validation: (rule) => rule.required(),
     }),
     defineField({
@@ -30,15 +31,8 @@ export const post = defineType({
     defineField({
       name: "category",
       title: "Category",
-      type: "string",
-      options: {
-        list: [
-          { title: "Health tips", value: "Health tips" },
-          { title: "Home care", value: "Home care" },
-          { title: "Wellness", value: "Wellness" },
-          { title: "First aid", value: "First aid" },
-        ],
-      },
+      type: "reference",
+      to: [{ type: "category" }],
       validation: (rule) => rule.required(),
     }),
     defineField({
@@ -74,8 +68,7 @@ export const post = defineType({
     select: {
       title: "title",
       media: "coverImage",
-      subtitle: "category",
+      subtitle: "category.title",
     },
   },
 });
-

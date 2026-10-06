@@ -1,16 +1,33 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { PortableText, type PortableTextComponents } from "@portabletext/react";
 import { ArrowLeft, ArrowRight, BookOpen, Calendar, Clock } from "lucide-react";
 import { site } from "@/data/site";
-import { posts } from "@/data/blog";
+import { client } from "@/sanity/lib/client";
+import { urlFor } from "@/sanity/lib/image";
+import { postsQuery, postBySlugQuery } from "@/sanity/lib/queries";
 import { Reveal } from "@/components/Reveal";
 import { BookButton } from "@/components/booking/BookButton";
-import { BlogImage } from "@/components/BlogImage";
 
 type Props = {
   params: Promise<{ slug: string }>;
 };
+
+type Post = {
+  _id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  category: string;
+  publishedAt: string;
+  readTime?: string;
+  coverImage?: { asset?: { _ref: string } };
+  body: unknown;
+};
+
+export const revalidate = 60;
 
 function formatDate(value: string) {
   return new Date(value).toLocaleDateString("en-IN", {
@@ -20,13 +37,43 @@ function formatDate(value: string) {
   });
 }
 
-export function generateStaticParams() {
+const portableTextComponents: PortableTextComponents = {
+  block: {
+    normal: ({ children }) => <p className="mt-4">{children}</p>,
+    h2: ({ children }) => (
+      <h2 className="mt-8 text-2xl font-bold">{children}</h2>
+    ),
+    h3: ({ children }) => (
+      <h3 className="mt-6 text-xl font-bold">{children}</h3>
+    ),
+  },
+  list: {
+    bullet: ({ children }) => (
+      <ul className="mt-4 list-disc space-y-2 pl-6">{children}</ul>
+    ),
+  },
+  types: {
+    image: ({ value }) => (
+      <div className="relative mt-6 h-72 overflow-hidden rounded-2xl sm:h-96">
+        <Image
+          src={urlFor(value).width(1200).url()}
+          alt=""
+          fill
+          className="object-cover"
+        />
+      </div>
+    ),
+  },
+};
+
+export async function generateStaticParams() {
+  const posts: { slug: string }[] = await client.fetch(postsQuery);
   return posts.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = posts.find((p) => p.slug === slug);
+  const post: Post | null = await client.fetch(postBySlugQuery, { slug });
 
   if (!post) return {};
 
@@ -38,22 +85,37 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params;
-  const post = posts.find((p) => p.slug === slug);
+  const post: Post | null = await client.fetch(postBySlugQuery, { slug });
 
   if (!post) {
     notFound();
   }
 
-  const related = posts.filter((p) => p.slug !== post.slug).slice(0, 2);
+  const allPosts: Post[] = await client.fetch(postsQuery);
+  const related = allPosts.filter((p) => p.slug !== post.slug).slice(0, 2);
+
+  const coverUrl = post.coverImage
+    ? urlFor(post.coverImage).width(1600).url()
+    : null;
 
   return (
     <main>
       {/* Hero */}
-      <section className="relative overflow-hidden bg-linear-to-br from-teal-700 via-teal-600 to-cyan-600 text-white">
-        <div className="pointer-events-none absolute -left-24 -top-24 size-96 rounded-full bg-cyan-300/30 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-32 right-0 size-[28rem] rounded-full bg-highlight/30 blur-3xl" />
+      <section className="relative isolate overflow-hidden text-white">
+        {coverUrl ? (
+          <Image
+            src={coverUrl}
+            alt={post.title}
+            fill
+            priority
+            className="absolute inset-0 -z-10 object-cover"
+          />
+        ) : (
+          <div className="absolute inset-0 -z-10 bg-linear-to-br from-teal-700 via-teal-600 to-cyan-600" />
+        )}
+        <div className="absolute inset-0 -z-10 bg-linear-to-t from-teal-950/95 via-teal-900/70 to-teal-800/40" />
 
-        <div className="relative mx-auto max-w-3xl px-4 pt-8">
+        <div className="relative mx-auto max-w-4xl px-4 pt-8">
           <Link
             href="/blog"
             className="inline-flex items-center gap-2 text-sm text-white/80 transition-colors hover:text-white"
@@ -63,56 +125,43 @@ export default async function BlogPostPage({ params }: Props) {
           </Link>
         </div>
 
-        <div className="relative mx-auto max-w-3xl px-4 pb-16 pt-10 sm:pb-24 sm:pt-16">
+        <div className="relative mx-auto max-w-4xl px-4 pb-16 pt-10 sm:pb-24 sm:pt-16">
           <Reveal>
-            <span className="inline-block rounded-full bg-white/15 px-4 py-1.5 text-sm font-medium backdrop-blur">
+            <span className="inline-block rounded-full bg-highlight px-4 py-1.5 text-sm font-semibold text-highlight-foreground">
               {post.category}
             </span>
 
-            <h1 className="mt-4 text-3xl font-bold sm:text-5xl">
+            <h1 className="mt-5 max-w-3xl text-3xl font-bold leading-tight sm:text-5xl">
               {post.title}
             </h1>
 
-            <div className="mt-6 flex flex-wrap items-center gap-5 text-sm text-white/80">
-              <span className="flex items-center gap-2">
+            <div className="mt-5 flex flex-wrap items-center gap-3 text-sm">
+              <span className="flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 backdrop-blur">
                 <Calendar className="size-4" />
-                {formatDate(post.date)}
+                {formatDate(post.publishedAt)}
               </span>
-              <span className="flex items-center gap-2">
-                <Clock className="size-4" />
-                {post.readTime}
-              </span>
+              {post.readTime && (
+                <span className="flex items-center gap-2 rounded-full bg-white/10 px-3 py-1.5 backdrop-blur">
+                  <Clock className="size-4" />
+                  {post.readTime}
+                </span>
+              )}
             </div>
           </Reveal>
         </div>
       </section>
 
       {/* Article */}
-            <article className="mx-auto max-w-3xl px-4 py-14 sm:py-16">
+      <article className="mx-auto max-w-3xl px-4 py-14 sm:py-16">
         <Reveal>
-          <div className="overflow-hidden rounded-3xl shadow-xl">
-            <BlogImage
-              src={post.image}
-              alt={post.title}
-              priority
-              className="h-64 w-full sm:h-96"
-            />
-          </div>
-        </Reveal>
-
-        <Reveal className="mt-10">
           <p className="border-l-4 border-primary pl-4 text-lg text-muted-foreground">
             {post.excerpt}
           </p>
         </Reveal>
 
-        <div className="mt-8 space-y-6 text-base leading-relaxed">
-          {post.content.map((paragraph, index) => (
-            <Reveal key={index}>
-              <p>{paragraph}</p>
-            </Reveal>
-          ))}
-        </div>
+        <Reveal className="mt-8 text-base leading-relaxed text-foreground">
+          <PortableText value={post.body} components={portableTextComponents} />
+        </Reveal>
 
         <Reveal>
           <p className="mt-10 rounded-xl border bg-secondary/40 p-4 text-sm text-muted-foreground">
@@ -160,7 +209,7 @@ export default async function BlogPostPage({ params }: Props) {
 
             <div className="mt-8 grid gap-6 md:grid-cols-2">
               {related.map((item, index) => (
-                <Reveal key={item.slug} delay={index * 120} className="h-full">
+                <Reveal key={item._id} delay={index * 120} className="h-full">
                   <Link
                     href={`/blog/${item.slug}`}
                     className="group flex h-full flex-col rounded-2xl border bg-card p-6 transition-all duration-300 hover:-translate-y-2 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/10"

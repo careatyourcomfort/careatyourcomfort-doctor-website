@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { Bricolage_Grotesque, Inter } from "next/font/google";
 import "./globals.css";
 import { site } from "@/data/site";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
-import { BookingDialogProvider } from "@/components/booking/BookingDialog";
+import { SiteChrome } from "@/components/SiteChrome";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -31,12 +29,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${inter.variable} ${bricolage.variable} h-full antialiased`}
     >
-                 <body className="min-h-full flex flex-col">
-        <BookingDialogProvider>
-          <Header />
-          <div className="flex-1">{children}</div>
-          <Footer />
-        </BookingDialogProvider>
+      <body className="min-h-full flex flex-col">
+        <SiteChrome>{children}</SiteChrome>
       </body>
     </html>
   );
