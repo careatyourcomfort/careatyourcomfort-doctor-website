@@ -3,6 +3,7 @@ import { Clock, IndianRupee, MapPin, MessageCircle } from "lucide-react";
 import { site } from "@/data/site";
 import { Button } from "@/components/ui/button";
 import { BookButton } from "@/components/booking/BookButton";
+import { whatsappChatUrl } from "@/sanity/lib/whatsapp-link";
 
 export function Hero() {
   return (
@@ -39,7 +40,7 @@ export function Hero() {
               className="border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white"
             >
               <a
-                href={`https://wa.me/${site.whatsapp}`}
+                href={whatsappChatUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
               >

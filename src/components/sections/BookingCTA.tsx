@@ -3,6 +3,7 @@ import { site } from "@/data/site";
 import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/Reveal";
 import { BookButton } from "@/components/booking/BookButton";
+import { whatsappChatUrl } from "@/sanity/lib/whatsapp-link";
 
 export function BookingCTA() {
   return (
@@ -35,7 +36,7 @@ export function BookingCTA() {
                 className="border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white"
               >
                 <a
-                  href={`https://wa.me/${site.whatsapp}`}
+                  href={whatsappChatUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

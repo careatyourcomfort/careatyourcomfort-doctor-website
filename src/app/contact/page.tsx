@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import {
-  Mail,
+  CheckCircle2,
+  Clock,
   MapPin,
   MessageCircle,
   Phone,
+  ShieldCheck,
 } from "lucide-react";
 import { site } from "@/data/site";
 import { Reveal } from "@/components/Reveal";
@@ -15,6 +17,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { whatsappChatUrl } from "@/sanity/lib/whatsapp-link";
 
 export const metadata: Metadata = {
   title: "Contact Us",
@@ -36,6 +39,24 @@ const contactFaqs = [
     question: "How quickly will I get a response?",
     answer:
       "We aim to respond to WhatsApp messages and calls as quickly as possible. For urgent matters, WhatsApp is the fastest option.",
+  },
+];
+
+const trustPoints = [
+  {
+    icon: Clock,
+    title: "Fast response",
+    text: "Most messages get a reply within minutes during the day.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "No spam, ever",
+    text: "Your number is only used to confirm your query or visit.",
+  },
+  {
+    icon: CheckCircle2,
+    title: "Real conversation",
+    text: "A member of our team personally replies to every message.",
   },
 ];
 
@@ -68,7 +89,7 @@ export default function ContactPage() {
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           <Reveal delay={0}>
             <a
-              href={`https://wa.me/${site.whatsapp}`}
+              href={whatsappChatUrl()}
               target="_blank"
               rel="noopener noreferrer"
               className="group block h-full rounded-2xl border bg-card p-6 transition-all duration-300 hover:-translate-y-2 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/10"
@@ -114,68 +135,64 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Form + info */}
+      {/* Form + trust sidebar */}
       <section className="border-y bg-secondary/40">
-        <div className="mx-auto grid max-w-6xl gap-10 px-4 py-16 lg:grid-cols-5 lg:gap-16">
-          <div className="lg:col-span-3">
-            <Reveal>
-              <h2 className="text-3xl font-bold">Send us a message</h2>
-              <p className="mt-3 text-muted-foreground">
-                Fill in the form and we&apos;ll get back to you on WhatsApp.
-              </p>
-            </Reveal>
+        <div className="mx-auto max-w-6xl px-4 py-16">
+          <Reveal>
+            <h2 className="text-3xl font-bold">Send us a message</h2>
+            <p className="mt-3 text-muted-foreground">
+              Fill in the form and we&apos;ll get back to you on WhatsApp.
+            </p>
+          </Reveal>
 
-            <Reveal delay={100} className="mt-8">
-              <div className="rounded-2xl border bg-card p-6 shadow-sm sm:p-8">
-                <ContactForm />
-              </div>
-            </Reveal>
-          </div>
+          <div className="mt-8 grid items-stretch gap-10 lg:grid-cols-5 lg:gap-16">
+            <div className="lg:col-span-3">
+              <Reveal delay={100} className="h-full">
+                <div className="h-full rounded-2xl border bg-card p-6 shadow-sm sm:p-8">
+                  <ContactForm />
+                </div>
+              </Reveal>
+            </div>
 
-          <div className="lg:col-span-2">
-            <Reveal delay={150}>
-              <div className="rounded-2xl border bg-card p-6 shadow-sm">
-                <h3 className="font-heading font-bold">Contact details</h3>
+            <div className="lg:col-span-2">
+              <Reveal delay={150} className="h-full">
+                <div className="h-full overflow-hidden rounded-2xl bg-linear-to-br from-teal-700 via-teal-600 to-cyan-600 text-white shadow-lg">
+                  <div className="relative flex h-full flex-col p-6 sm:p-8">
+                    <div className="pointer-events-none absolute -right-10 -top-10 size-40 rounded-full bg-white/10 blur-2xl" />
+                    <h3 className="text-lg font-bold">Why reach out to us</h3>
 
-                <ul className="mt-5 space-y-4 text-sm">
-                  <li className="flex items-start gap-3">
-                    <span className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-full bg-secondary text-primary">
-                      <Mail className="size-4" />
-                    </span>
-                    <div>
-                      <p className="text-muted-foreground">Service area</p>
-                      <p className="font-medium">{site.location}</p>
-                    </div>
-                  </li>
-                  {site.phones.map((phone) => (
-                    <li key={phone} className="flex items-start gap-3">
-                      <span className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-full bg-secondary text-primary">
-                        <Phone className="size-4" />
-                      </span>
-                      <div>
-                        <p className="text-muted-foreground">Phone</p>
-                        <a
-                          href={`tel:+91${phone}`}
-                          className="font-medium hover:text-primary"
-                        >
-                          +91 {phone}
-                        </a>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
+                    <ul className="relative mt-5 space-y-5">
+                      {trustPoints.map((point) => {
+                        const Icon = point.icon;
+                        return (
+                          <li key={point.title} className="flex items-start gap-3">
+                            <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-white/15 backdrop-blur">
+                              <Icon className="size-4" />
+                            </span>
+                            <div>
+                              <p className="font-semibold">{point.title}</p>
+                              <p className="mt-0.5 text-sm text-white/80">
+                                {point.text}
+                              </p>
+                            </div>
+                          </li>
+                        );
+                      })}
+                    </ul>
 
-                <a
-                  href={`https://wa.me/${site.whatsapp}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-6 flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
-                >
-                  <MessageCircle className="size-4" />
-                  Chat on WhatsApp instead
-                </a>
-              </div>
-            </Reveal>
+                    <a
+                      href={whatsappChatUrl()}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="relative mt-auto flex w-full items-center justify-center gap-2 rounded-lg bg-highlight px-4 py-3 text-sm font-semibold text-highlight-foreground transition-colors hover:bg-highlight/90"
+                    >
+                      <MessageCircle className="size-4" />
+                      Chat on WhatsApp instead
+                    </a>
+                  </div>
+                </div>
+              </Reveal>
+            </div>
           </div>
         </div>
       </section>

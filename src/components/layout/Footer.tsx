@@ -2,6 +2,7 @@ import Link from "next/link";
 import { MapPin, MessageCircle, Phone } from "lucide-react";
 import { site, nav } from "@/data/site";
 import { services } from "@/data/services";
+import { whatsappChatUrl } from "@/sanity/lib/whatsapp-link";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -21,7 +22,7 @@ export function Footer() {
             doorstep, at a transparent fee of ₹{site.fee}.
           </p>
           <a
-            href={`https://wa.me/${site.whatsapp}`}
+            href={whatsappChatUrl()}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-5 inline-flex items-center gap-2 rounded-full bg-highlight px-4 py-2 text-sm font-semibold text-highlight-foreground transition-transform hover:-translate-y-0.5"

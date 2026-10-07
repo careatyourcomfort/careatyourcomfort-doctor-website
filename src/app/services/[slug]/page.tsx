@@ -8,6 +8,7 @@ import { services } from "@/data/services";
 import { Reveal } from "@/components/Reveal";
 import { BookButton } from "@/components/booking/BookButton";
 import { Button } from "@/components/ui/button";
+import { whatsappChatUrl } from "@/sanity/lib/whatsapp-link";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -89,7 +90,7 @@ export default async function ServiceDetailPage({ params }: Props) {
               </BookButton>
               <Button asChild variant="outline" size="lg" className="border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white">
                 <a
-                  href={`https://wa.me/${site.whatsapp}`}
+                  href={whatsappChatUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
