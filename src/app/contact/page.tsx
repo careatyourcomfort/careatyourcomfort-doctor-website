@@ -184,7 +184,7 @@ export default function ContactPage() {
                       href={whatsappChatUrl()}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="relative mt-auto flex w-full items-center justify-center gap-2 rounded-lg bg-highlight px-4 py-3 text-sm font-semibold text-highlight-foreground transition-colors hover:bg-highlight/90"
+                      className="relative mt-8 flex w-full items-center justify-center gap-2 rounded-lg bg-highlight px-4 py-3 text-sm font-semibold text-highlight-foreground transition-colors hover:bg-highlight/90 lg:mt-auto"
                     >
                       <MessageCircle className="size-4" />
                       Chat on WhatsApp instead
