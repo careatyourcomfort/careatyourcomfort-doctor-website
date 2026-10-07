@@ -92,7 +92,15 @@ export default async function BlogPostPage({ params }: Props) {
   }
 
   const allPosts: Post[] = await client.fetch(postsQuery);
-  const related = allPosts.filter((p) => p.slug !== post.slug).slice(0, 2);
+  const currentIndex = allPosts.findIndex((p) => p.slug === post.slug);
+
+  const related: Post[] = [];
+  if (currentIndex !== -1 && allPosts.length > 1) {
+    for (let step = 1; related.length < 2 && step < allPosts.length; step++) {
+      const next = allPosts[(currentIndex + step) % allPosts.length];
+      related.push(next);
+    }
+  }
 
   const coverUrl = post.coverImage
     ? urlFor(post.coverImage).width(1600).url()
