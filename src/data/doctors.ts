@@ -7,7 +7,7 @@ export const doctors = [
     },
     {
         name: "Dr Gaurav Sisode",
-        qualification: "MBBS, COO",
+        qualification: "MBBS, MD",
         role: "Physician",
         photo: "/images/doctors/gaurav-sisode.jpg",
     },

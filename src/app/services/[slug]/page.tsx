@@ -88,16 +88,20 @@ export default async function ServiceDetailPage({ params }: Props) {
               >
                 Book {service.name}
               </BookButton>
-              <Button asChild variant="outline" size="lg" className="border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white">
-                <a
-                  href={whatsappChatUrl()}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <MessageCircle />
-                  Chat on WhatsApp
-                </a>
-              </Button>
+              <Button
+  asChild
+  size="lg"
+  className="border-transparent bg-[#25D366] text-white hover:bg-[#075E54] hover:text-white"
+>
+  <a
+    href={whatsappChatUrl()}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <MessageCircle />
+    Talk to Us
+  </a>
+</Button>
             </div>
           </Reveal>
         </div>

@@ -56,7 +56,7 @@ export function ContactForm() {
         <Label htmlFor="contact-name">Your name</Label>
         <Input
           id="contact-name"
-          placeholder="e.g. Rahul Sharma"
+          placeholder="Enter your name"
           {...register("name")}
         />
         {errors.name && (
@@ -70,7 +70,7 @@ export function ContactForm() {
           id="contact-mobile"
           type="tel"
           inputMode="numeric"
-          placeholder="98XXXXXXXX"
+          placeholder="Enter your mobile number"
           {...register("mobile")}
         />
         {errors.mobile && (

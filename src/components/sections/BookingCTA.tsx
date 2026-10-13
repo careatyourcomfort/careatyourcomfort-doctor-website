@@ -30,20 +30,19 @@ export function BookingCTA() {
                 Book Home Visit
               </BookButton>
               <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white"
-              >
-                <a
-                  href={whatsappChatUrl()}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <MessageCircle />
-                  Chat on WhatsApp
-                </a>
-              </Button>
+  asChild
+  size="lg"
+  className="border-transparent bg-[#25D366] text-white hover:bg-[#075E54] hover:text-white"
+>
+  <a
+    href={whatsappChatUrl()}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <MessageCircle />
+    Talk to Us
+  </a>
+</Button>
             </div>
           </div>
         </div>

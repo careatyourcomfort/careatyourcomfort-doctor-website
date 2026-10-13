@@ -36,8 +36,7 @@ export function Hero() {
             <Button
               asChild
               size="lg"
-              variant="outline"
-              className="border-white/40 bg-white/10 text-white hover:bg-white/20 hover:text-white"
+              className="border-transparent bg-[#25D366] text-white hover:bg-[#1DA851] hover:text-white"
             >
               <a
                 href={whatsappChatUrl()}
@@ -45,7 +44,7 @@ export function Hero() {
                 rel="noopener noreferrer"
               >
                 <MessageCircle />
-                Chat on WhatsApp
+                Talk to Us
               </a>
             </Button>
           </div>

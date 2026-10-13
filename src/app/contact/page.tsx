@@ -181,14 +181,14 @@ export default function ContactPage() {
                     </ul>
 
                     <a
-                      href={whatsappChatUrl()}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="relative mt-8 flex w-full items-center justify-center gap-2 rounded-lg bg-highlight px-4 py-3 text-sm font-semibold text-highlight-foreground transition-colors hover:bg-highlight/90 lg:mt-auto"
-                    >
-                      <MessageCircle className="size-4" />
-                      Chat on WhatsApp instead
-                    </a>
+  href={whatsappChatUrl()}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="relative mt-8 flex w-full items-center justify-center gap-2 rounded-lg bg-[#25D366] px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#075E54] lg:mt-auto"
+>
+  <MessageCircle className="size-4" />
+  Talk to Us instead
+</a>
                   </div>
                 </div>
               </Reveal>

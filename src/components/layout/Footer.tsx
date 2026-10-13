@@ -22,14 +22,14 @@ export function Footer() {
             doorstep, at a transparent fee of ₹{site.fee}.
           </p>
           <a
-            href={whatsappChatUrl()}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-5 inline-flex items-center gap-2 rounded-full bg-highlight px-4 py-2 text-sm font-semibold text-highlight-foreground transition-transform hover:-translate-y-0.5"
-          >
-            <MessageCircle className="size-4" />
-            Chat on WhatsApp
-          </a>
+  href={whatsappChatUrl()}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2 text-sm font-semibold text-white transition-all hover:-translate-y-0.5 hover:bg-[#075E54]"
+>
+  <MessageCircle className="size-4" />
+  Talk to Us
+</a>
         </div>
 
         <div>

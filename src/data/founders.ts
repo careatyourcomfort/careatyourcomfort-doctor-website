@@ -1,11 +1,11 @@
 export const founders = [
   {
-    name: "Dr Vikas Sisode",
+    name: "Mr Vikas Sisode",
     role: "Founder & CEO",
     photo: "/vikas-sisode.jpg",
   },
   {
-    name: "Dr Shobha Sisode",
+    name: "Mrs Shobha Sisode",
     role: "Founder",
     photo: "/shobha-sisode.jpg",
   },
