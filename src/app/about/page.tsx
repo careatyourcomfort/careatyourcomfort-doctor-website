@@ -43,7 +43,7 @@ const values = [
 ];
 
 const stats = [
-  { value: "500+", label: "Home visits completed" },
+  { value: "50+", label: "Home visits completed" },
   { value: "4.8★", label: "Average patient rating" },
   { value: "7 days", label: "Available every week" },
   { value: "< 1 hr", label: "Typical response time" },
