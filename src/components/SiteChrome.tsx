@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { BookingDialogProvider } from "@/components/booking/BookingDialog";
+import { FloatingContactButtons } from "./layout/FloatingContactButtons";
 
 export function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -18,6 +19,7 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
       <Header />
       <div className="flex-1">{children}</div>
       <Footer />
+      <FloatingContactButtons/>
     </BookingDialogProvider>
   );
 }

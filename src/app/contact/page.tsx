@@ -83,7 +83,6 @@ export default function ContactPage() {
           </Reveal>
         </div>
       </section>
-
       {/* Contact method cards */}
       <section className="mx-auto max-w-6xl px-4 py-16">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -179,16 +178,15 @@ export default function ContactPage() {
                         );
                       })}
                     </ul>
-
                     <a
-  href={whatsappChatUrl()}
-  target="_blank"
-  rel="noopener noreferrer"
-  className="relative mt-8 flex w-full items-center justify-center gap-2 rounded-lg bg-[#25D366] px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#075E54] lg:mt-auto"
->
-  <MessageCircle className="size-4" />
-  Talk to Us instead
-</a>
+                      href={whatsappChatUrl()}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="relative mt-8 flex w-full items-center justify-center gap-2 rounded-lg bg-[#25D366] px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#075E54] lg:mt-auto"
+                    >
+                      <MessageCircle className="size-4" />
+                      Talk to Us instead
+                    </a>
                   </div>
                 </div>
               </Reveal>
