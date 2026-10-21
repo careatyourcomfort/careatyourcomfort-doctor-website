@@ -8,7 +8,9 @@ import { FloatingContactButtons } from "./layout/FloatingContactButtons";
 
 export function SiteChrome({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const isStudio = pathname?.startsWith("/studio");
+  const isStudio = ["/studio", "/book-now"].some((p) =>
+  pathname?.startsWith(p)
+);
 
   if (isStudio) {
     return <>{children}</>;
