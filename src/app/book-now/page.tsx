@@ -34,7 +34,7 @@ import { BackToTop } from "@/components/layout/BackToTop";
 export const metadata: Metadata = {
     title: `Book a Home Visit | ${site.name}`,
     description: `Doctor home visit in ${site.location}. Fee ₹${site.fee}. Book now.`,
-    robots: { index: false, follow: false },
+    alternates: { canonical: site.url },
 };
 
 const callHref = `tel:+91${site.phones[0]}`;

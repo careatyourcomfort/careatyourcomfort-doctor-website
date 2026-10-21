@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MessageCircle } from "lucide-react";
@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 const services = ["Physician", "General Surgery", "General Medicine"] as const;
+const MIN_FILL_MS = 3000;
 
 function todayStr() {
   const now = new Date();
@@ -27,6 +28,12 @@ function Req() {
 
 export function LandingBookingForm() {
   const [waUrl, setWaUrl] = useState<string | null>(null);
+  const [honeypot, setHoneypot] = useState("");
+  const startedAt = useRef(0);
+
+  useEffect(() => {
+    startedAt.current = Date.now();
+  }, []);
 
   const {
     register,
@@ -47,6 +54,11 @@ export function LandingBookingForm() {
   });
 
   const onSubmit = (data: BookingInput) => {
+    const elapsed = Date.now() - startedAt.current;
+
+    // Bot check: hidden field filled, or submitted too fast
+    if (honeypot || elapsed < MIN_FILL_MS) return;
+
     const url = buildWhatsAppUrl(data);
     window.open(url, "_blank");
     setWaUrl(url);
@@ -54,7 +66,7 @@ export function LandingBookingForm() {
     fetch("/api/booking", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data),
+      body: JSON.stringify({ ...data, website: honeypot, elapsed }),
     }).catch(() => {});
   };
 
@@ -80,6 +92,20 @@ export function LandingBookingForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-3">
+      {/* Honeypot: hidden from people, bots fill it */}
+      <div className="absolute -left-[9999px]" aria-hidden="true">
+        <label htmlFor="ln-website">Website</label>
+        <input
+          id="ln-website"
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={honeypot}
+          onChange={(e) => setHoneypot(e.target.value)}
+        />
+      </div>
+
       <div className="space-y-1.5">
         <Label htmlFor="ln-name">
           Name
